@@ -1,0 +1,15 @@
+클래스별 AUC, F1 및 Accuracy 성능 추가:
+  Atelectasis: AUC=0.8822, F1=0.5480, Accuracy=0.8879
+  Consolidation: AUC=0.9754, F1=0.7929, Accuracy=0.9823
+  Infiltration: AUC=0.9556, F1=0.7828, Accuracy=0.9163
+  Pneumothorax: AUC=0.7977, F1=0.5538, Accuracy=0.7635
+  Edema: AUC=0.9528, F1=0.6606, Accuracy=0.9523
+  Emphysema: AUC=0.8675, F1=0.3865, Accuracy=0.9397
+  Fibrosis: AUC=0.8502, F1=0.0212, Accuracy=0.9784
+  Effusion: AUC=0.9672, F1=0.7530, Accuracy=0.9493
+  Pneumonia: AUC=0.8474, F1=0.2245, Accuracy=0.9304
+  Pleural_Thickening: AUC=0.9405, F1=0.4451, Accuracy=0.9656
+  Cardiomegaly: AUC=0.9675, F1=0.6673, Accuracy=0.9715
+  Nodule: AUC=0.9233, F1=0.1629, Accuracy=0.9839
+  Mass: AUC=0.9044, F1=0.3175, Accuracy=0.9578
+  Hernia: AUC=0.9862, F1=0.5254, Accuracy=0.9978

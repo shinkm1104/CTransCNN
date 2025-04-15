@@ -1,0 +1,38 @@
+# 파이썬 캐시
+*.py[cod]
+__pycache__/
+
+# Jupyter Notebook 체크포인트
+.ipynb_checkpoints/
+
+# 모델 weight, 체크포인트
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+*.pkl
+
+# 학습 로그, wandb, tensorboard 등
+wandb/
+logs/
+lightning_logs/
+*.log
+*.tensorboard
+events.out.*
+
+# 데이터 캐시
+*.npy
+*.npz
+*.pkl
+*.hdf5
+*.csv
+*.tsv
+.cache/
+.cache_dir/
+datasets/
+data/
+
+# 이미지
+*.gif
+*.png

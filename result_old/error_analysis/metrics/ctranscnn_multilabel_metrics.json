@@ -1,0 +1,10 @@
+{
+    "hamming_loss": 0.924078539057442,
+    "ranking_loss": 0.1197865665404694,
+    "multilabel_accuracy": 0.07592146094255797,
+    "one_error": 0.6245116424441319,
+    "multilabel_coverage": 2.287349585872793,
+    "subset_accuracy": 0.0,
+    "micro_f1_score": 0.14112825833225262,
+    "macro_f1_score": 0.13489974943597502
+}

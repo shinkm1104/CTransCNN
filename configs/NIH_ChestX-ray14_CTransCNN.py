@@ -10,7 +10,8 @@ model = dict(
     neck=None,
     head=dict(
         type='My_Hybird_Head',
-        num_classes=14,
+        # num_classes=14,
+        num_classes=15,
         in_channels=[256, 384],
         init_cfg=None,
         loss=dict(
@@ -53,26 +54,29 @@ test_pipeline = [
     dict(type='Collect', keys=['img'])
 ]
 
-data_root = './open_data/NIH-Chest_x-rays14_multi-label/'
+# data_root = './open_data/NIH-Chest_x-rays14_multi-label/'
+data_root = '/userHome/userhome4/kyoungmin/code/Xray/dataset/'
 data = dict(
-    samples_per_gpu=32,
-    workers_per_gpu=8,
+    samples_per_gpu=64,
+    workers_per_gpu=32,
     train=dict(
         type=dataset_type,
         data_prefix=data_root,
-        ann_file=data_root + 'add72_chest14_train_labels.txt',
+        # ann_file=data_root + 'add72_chest14_train_labels.txt',
+        # classes=data_root + 'add72_chest14_classes.txt',
+        ann_file=data_root + 'train_val_list.txt',
         classes=data_root + 'add72_chest14_classes.txt',
         pipeline=train_pipeline),
     val=dict(
         type=dataset_type,
         data_prefix=data_root,
-        ann_file=data_root + 'add72_chest14_val_labels.txt',
+        ann_file=data_root + 'train_val_list.txt',
         classes=data_root + 'add72_chest14_classes.txt',
         pipeline=test_pipeline),
     test=dict(
         type=dataset_type,
         data_prefix=data_root,
-        ann_file=data_root + 'add72_chest14_test_labels.txt',
+        ann_file=data_root + 'test_list_ctranscnn.txt',
         classes=data_root + 'add72_chest14_classes.txt',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric=[
@@ -103,7 +107,7 @@ lr_config = dict(
     warmup_iters=5 * 1252,
     warmup_by_epoch=False)
 
-runner = dict(type='EpochBasedRunner', max_epochs=300)
+runner = dict(type='EpochBasedRunner', max_epochs=50)
 # checkpoint saving
 checkpoint_config = dict(interval=1)
 # yapf:disable

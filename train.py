@@ -1,3 +1,25 @@
+# # 기존 코드 제거
+# # from mmcls.core.hook import HOOKS
+# # if 'ClassNumCheckHook' in HOOKS.module_dict:
+# #     del HOOKS.module_dict['ClassNumCheckHook']
+
+# # 새로운 코드 추가
+# from mmcv.runner import HOOKS
+# # HOOKS가 존재하면 ClassNumCheckHook 제거 시도
+# try:
+#     if 'ClassNumCheckHook' in HOOKS.module_dict:
+#         del HOOKS.module_dict['ClassNumCheckHook']
+# except:
+#     pass  # 오류 발생시 무시하고 계속 진행
+
+# # DistributedSampler 등록
+# from torch.utils.data.distributed import DistributedSampler
+# from mmcls.datasets.builder import SAMPLERS
+
+# if 'DistributedSampler' not in SAMPLERS.module_dict:
+#     SAMPLERS.register_module(module=DistributedSampler, name='DistributedSampler')
+
+
 import argparse
 import copy
 import os
@@ -21,30 +43,33 @@ from model.utils import (auto_select_device, collect_env, get_root_logger,
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a model')
-    parser.add_argument('config', help='train config file path')
-    parser.add_argument('--work-dir', help='the dir to save logs and models')
+    parser.add_argument('--config', help='train config file path', default="configs/NIH_ChestX-ray14_CTransCNN.py")
+    parser.add_argument('--work-dir', help='the dir to save logs and models', default="save")
     parser.add_argument(
         '--resume-from', help='the checkpoint file to resume from')
     parser.add_argument(
         '--no-validate',
         action='store_true',
-        help='whether not to evaluate the checkpoint during training')
+        help='whether not to evaluate the checkpoint during training',
+        default=False)
     group_gpus = parser.add_mutually_exclusive_group()
     group_gpus.add_argument(
-        '--device', help='device used for training. (Deprecated)')
+        '--device', help='device used for training. (Deprecated)', default='cuda')
     group_gpus.add_argument(
         '--gpus',
         type=int,
         help='(Deprecated, please use --gpu-id) number of gpus to use '
-        '(only applicable to non-distributed training)')
+        '(only applicable to non-distributed training)',
+        default=3)
     group_gpus.add_argument(
         '--gpu-ids',
         type=int,
 
         nargs='+',
-        help='(Deprecated, please use --gpu-id) ids of gpus to use '
+        help='(Deprecated, please use --gpu-id) ids of gpus to use '        
              
-        '(only applicable to non-distributed training)')
+        '(only applicable to non-distributed training)',
+        default=0)
     group_gpus.add_argument(
         '--gpu-id',
         type=int,
@@ -61,11 +86,11 @@ def parse_args():
     parser.add_argument(
         '--diff-seed',
         action='store_true',
-        help='Whether or not set different seeds for different ranks')
+        help='Whether or not set different seeds for different ranks', default=False)
     parser.add_argument(
         '--deterministic',
         action='store_true',
-        help='whether to set deterministic options for CUDNN backend.')
+        help='whether to set deterministic options for CUDNN backend.', default=False)
     parser.add_argument(
         '--cfg-options',
         nargs='+',
@@ -119,7 +144,11 @@ def main():
                       'single GPU mode in non-distributed training. '
                       'Use `gpus=1` now.')
     if args.gpu_ids is not None:
-        cfg.gpu_ids = args.gpu_ids[0:1]
+    # 만약 gpu_ids가 int라면 리스트로 만들어줍니다.
+        if isinstance(args.gpu_ids, int):
+            cfg.gpu_ids = [args.gpu_ids]
+        else:
+            cfg.gpu_ids = args.gpu_ids[0:1]
         warnings.warn('`--gpu-ids` is deprecated, please use `--gpu-id`. '
                       'Because we only support single GPU mode in '
                       'non-distributed training. Use the first GPU '
@@ -176,7 +205,7 @@ def main():
 
     model = build_classifier(cfg.model)
     model.init_weights()
-
+    print(cfg.data.train)
     datasets = [build_dataset(cfg.data.train)]
     if len(cfg.workflow) == 2:
         val_dataset = copy.deepcopy(cfg.data.val)
