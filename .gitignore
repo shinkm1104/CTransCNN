@@ -30,8 +30,8 @@ events.out.*
 *.tsv
 .cache/
 .cache_dir/
-datasets/
-data/
+# datasets/
+# data/
 
 # 이미지
 *.gif
