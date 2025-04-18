@@ -21,6 +21,8 @@ lightning_logs/
 *.tensorboard
 events.out.*
 
+*.json
+
 # 데이터 캐시
 *.npy
 *.npz

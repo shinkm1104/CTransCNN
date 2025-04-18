@@ -113,8 +113,10 @@ def average_performance(pred, target, thr=None, k=None, save_dir=None, disease_l
     
     # Plot overall ROC curves and AUC bar graph
     if save_dir is None:
-        save_dir = "/userHome/userhome4/kyoungmin/code/Xray/CTransCNN/save/visualizations"
-    if save_dir is not None:
+        pass
+        # save_dir = "/userHome/userhome4/kyoungmin/code/Xray/CTransCNN/save/visualizations"
+    else:
+    # if save_dir is not None:
         # All ROC curves in one plot
         plt.figure(figsize=(12, 10))
         for i in range(n_classes):

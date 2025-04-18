@@ -159,10 +159,11 @@ def add_multi_label_auc(pred, target, thr=None, k=None, save_dir=None, disease_l
 
     
     # AUC 종합 이미지 생성 (전체 클래스 ROC 곡선)
-    print('save_dir : {save_dir}')
     if save_dir is None :
-        save_dir = "/userHome/userhome4/kyoungmin/code/Xray/CTransCNN/save/visualizations"
-    if save_dir is not None:
+        pass
+        # save_dir = "/userHome/userhome4/kyoungmin/code/Xray/CTransCNN/save/visualizations"
+    else:
+    # if save_dir is not None:
         # 1. 모든 클래스의 ROC 곡선을 하나의 그래프에 표시
         # print('here')
         plt.figure(figsize=(12, 10))

@@ -91,7 +91,6 @@ class MultiLabelDataset(BaseDataset):
             for k, v in zip(performance_keys, performance_values):
                 if k in metrics:
                     eval_results[k] = v
-        # print('hi')
         add_multi_label_auc(results, gt_labels, **metric_options)
             
         return eval_results
